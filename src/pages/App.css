@@ -49,10 +49,35 @@ html{
   height: 80px;
   border: 2px solid black;
   float: left;
+  cursor: pointer;
+}
+
+.container-game .tabuleiro .espaco:hover{
+  border: 2px solid rgba(0, 0, 0, 0.3);
 }
 
 .container-game .tabuleiro .espaco img{
   width: 100%;
+}
+
+.New{
+  padding: 10px;
+  cursor: pointer;
+  background-color: darkslategrey;
+  color: aliceblue;
+  padding: 2px;
+  font-size: 15px;
+  border: 2px solid black;
+  transition: .2s;
+}
+
+.New:hover{
+  border-radius: 20px;
+}
+
+.turn{
+  font-size: 20px;
+  margin-bottom: -20px;
 }
 
 .player{
@@ -82,19 +107,36 @@ html{
   border-radius: 20px;
 }
 
+.waitingPlayer{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.waitingPlayer p{
+  color: aliceblue;
+}
+
 @media (max-Width: 1050px){
   .container .pontuacao p img {
-    width: 100px;
+    width: 40px;
   }
   .container .pontuacao #x,#old,#o{
     padding: 10px;
-    font-size: 50px;
+    font-size: 30px;
   }
   .container-game .tabuleiro{
       max-height: 50%;
   }
   .container-game .tabuleiro .espaco{
-      width: 200px;
-      height: 200px;
+      width: 100px;
+      height: 100px;
   }
 }

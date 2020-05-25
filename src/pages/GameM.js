@@ -13,10 +13,11 @@ function App({ match }) {
   const [pontuacao, setPontuacao] = useState({})
   const [playerTime, setPlayerTime] = useState(null)
   const [parts, setParts] = useState({})
+  // eslint-disable-next-line no-unused-vars
   const [situation, setSituation] = useState([])
   const [emit, setEmit] = useState(() => { })
   const [playerid, setPlayerid] = useState('')
-  const [you, setYou] = useState('')
+  const [you, setYou] = useState(1)
 
   useEffect(() => {
 
@@ -28,17 +29,18 @@ function App({ match }) {
       setPontuacao(command.pontuacao)
       setPlayerTime(command.playerTime)
       setParts(command.parts)
-      if (parts[1] === playerid) {
-        setYou(2)
-      } else {
-        setYou(1)
-      }
+
+    })
+
+    socket.on('reset-game', (command) => {
+      setGame(command.game)
+      setPlayerTime(command.playerTime)
     })
 
     socket.on('add-player', (command) => {
       setGame(command.game)
       setPlayerTime(command.playerTime)
-      setParts(command.parts)
+      setParts(command.players)
     })
 
     socket.on('attempt', (command) => {
@@ -50,10 +52,29 @@ function App({ match }) {
 
     socket.on('connect', () => {
       setPlayerid(socket.id)
+      if (parts[1] === playerid) {
+        setYou(1)
+      } else {
+        setYou(2)
+      }
+    })
+
+    socket.on('remove-player', (command) => {
+      setPlayerTime(command.playerTime)
     })
 
     setEmit(socket)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (parts[1] === playerid) {
+      setYou(1)
+    } else {
+      setYou(2)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [parts])
 
   function positionClick(command) {
     emit.emit('move', {
@@ -61,6 +82,12 @@ function App({ match }) {
         i: command.i,
         j: command.j
       },
+      gameid: playerid
+    })
+  }
+
+  function newGame() {
+    emit.emit('reset', {
       gameid: playerid
     })
   }
@@ -83,6 +110,9 @@ function App({ match }) {
         <p id='old'><img src={imgOld} alt='X' />{pontuacao[3]}</p>
         <p id='o'><img src={imgO} alt='O' /> {pontuacao[2]}</p>
       </div>
+      {playerTime === you ? (
+        <div className="turn">Sua vez</div>
+      ) : (<div className="turn">Vez do amigo</div>)}
       <div className='container-game'>
         {
           game.length > 0 ? (
@@ -106,11 +136,22 @@ function App({ match }) {
       </div>
       <div className='player'>
         <p>Você é</p>
-        <img src={you === 1 ? imgX : imgO} alt={you === 1 ? imgX : imgO} />
+        <img src={imgEspace({ elem: you })} alt={you === 1 ? "X" : "o"} />
       </div>
-        <div className='link'>
-        <a href={`http://localhost:3000/${playerid}/game`}  target="blank">{`http://localhost:3000/${playerid}/game`}</a>
-      </div>
+      {playerTime === 0 ? (
+        <div className="waitingPlayer">
+          <p>Aguardando outro jogador</p>
+          <p>Mande esse link para seu Amigo</p>
+          <div className='link'>
+          <a href={`whatsapp://send?link=${playerid}`} data-action="share/whatsapp/share">Compartilhe no Whatsapp</a>
+          </div>
+        </div>
+      ) : (<div />)}
+      {playerTime === 3 ? (
+        <div className="New" onClick={() => newGame()}>
+          <p>Começar de Novo</p>
+        </div>
+      ) : (<div />)}
     </div >
   );
 }

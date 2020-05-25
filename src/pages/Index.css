@@ -1,0 +1,101 @@
+html{
+    height: 100%;
+}
+
+.backfround{
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-image: url('https://blog.rachacuca.com.br/wp-content/uploads/2020/01/enigmas-jogo-da-velha-768x768.jpg');
+}
+
+.login-container{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.login-container form, .form{
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    background-color: rgba(46, 139, 86, 0.8);
+    padding: 50px;
+    border-radius: 50px;
+    border: 2px solid black;
+}
+
+form{
+    margin-left: 100px;
+}
+
+.login-container form input{
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.login-container .form a{
+    display: flex;
+    margin-top: 10px;
+    border: 0px;
+    border-radius: 4px;
+    height: 48px;
+    font-size: 16px;
+    background-color: #df4723;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin-bottom: 50px;
+}
+
+.login-container form input::placeholder{
+    color: #999;
+}
+
+.login-container h1{
+    text-align: center;
+    color: ivory;
+}
+
+.login-container form button{
+    margin-top: 10px;
+    border: 0px;
+    border-radius: 4px;
+    height: 48px;
+    font-size: 16px;
+    background-color: #df4723;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-Width: 1050px){
+    .login-container{
+        flex-direction: column;
+    }
+    .login-container form, .form{
+        flex-direction: column;
+        margin-top: 10%;
+        padding: 40px;
+        max-width: 70%;
+    }
+    form{
+        margin-left: 0;
+        margin: -10px;
+    }
+}
