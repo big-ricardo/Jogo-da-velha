@@ -143,7 +143,7 @@ function App({ match }) {
           <p>Aguardando outro jogador</p>
           <p>Mande esse link para seu Amigo</p>
           <div className='link'>
-          <a href={`whatsapp://send?link=${playerid}`} data-action="share/whatsapp/share">Compartilhe no Whatsapp</a>
+          <a >{`${playerid}`}</a>
           </div>
         </div>
       ) : (<div />)}

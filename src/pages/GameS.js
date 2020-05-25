@@ -63,13 +63,13 @@ function App({ match }) {
         setEmit(socket)
     }, [match.params.gameid])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (parts[1] === playerid) {
             setYou(1)
         } else {
             setYou(2)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parts])
 
     function positionClick(command) {
@@ -106,9 +106,9 @@ function App({ match }) {
                 <p id='old'><img src={imgOld} alt='X' />{pontuacao[3]}</p>
                 <p id='o'><img src={imgO} alt='O' /> {pontuacao[2]}</p>
             </div>
-            { playerTime === you?(
+            {playerTime === you ? (
                 <div className="turn">Sua vez</div>
-            ):(<div className="turn">Vez do amigo</div>)}
+            ) : (<div className="turn">Vez do amigo</div>)}
             <div className='container-game'>
                 {
                     game.length > 0 ? (
@@ -132,14 +132,14 @@ function App({ match }) {
             </div>
             <div className='player'>
                 <p>Você é</p>
-                <img src={imgEspace({elem:you})} alt={you === 1 ? "X" : "o"} />
+                <img src={imgEspace({ elem: you })} alt={you === 1 ? "X" : "o"} />
             </div>
             {playerTime === 0 ? (
                 <div className="waitingPlayer">
                     <p>Aguardando outro jogador</p>
                     <p>Mande esse link para seu Amigo</p>
                     <div className='link'>
-                        <a href={`http://localhost:3000/${gameid}/game`} target="blank">{`http://localhost:3000/${playerid}/game`}</a>
+                        <a >{`${playerid}`}</a>
                     </div>
                 </div>
             ) : (<div />)}
