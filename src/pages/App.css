@@ -55,6 +55,33 @@ html{
   width: 100%;
 }
 
+.player{
+  font-size: 20px;
+  padding: 10px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.player img{
+  width: 30px;
+  margin-left: 5px;
+}
+
+.link a{
+  background-color: darkslategrey;
+  color: aliceblue;
+  padding: 10px;
+  font-size: 15px;
+  border: 2px solid black;
+  transition: .2s;
+}
+
+.link a:hover{
+  border-radius: 20px;
+}
+
 @media (max-Width: 1050px){
   .container .pontuacao p img {
     width: 100px;
