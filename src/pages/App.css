@@ -61,7 +61,7 @@ html{
 }
 
 .New{
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
   background-color: darkslategrey;
   color: aliceblue;
@@ -69,6 +69,7 @@ html{
   font-size: 15px;
   border: 2px solid black;
   transition: .2s;
+  margin-bottom: -15px;
 }
 
 .New:hover{

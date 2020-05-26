@@ -9,7 +9,7 @@ import imgOld from '../assets/old.png'
 
 function App({ match }) {
 
-    const [gameid, setGameId] = useState('')
+    const [gameid, setGameid] = useState('')
     const [game, setGame] = useState([])
     const [pontuacao, setPontuacao] = useState({})
     const [playerTime, setPlayerTime] = useState(null)
@@ -18,12 +18,11 @@ function App({ match }) {
     const [situation, setSituation] = useState([])
     const [emit, setEmit] = useState(() => { })
     const [playerid, setPlayerid] = useState('')
-    const [you, setYou] = useState(2)
+    const [you, setYou] = useState(1)
+    const [win, setWin] = useState(0)
 
     useEffect(() => {
-
-        setGameId(match.params.gameid)
-
+        setGameid(match.params.gameid)
         const socket = io(ip, {
             query: { gameid: match.params.gameid }
         })
@@ -32,6 +31,7 @@ function App({ match }) {
             setPontuacao(command.pontuacao)
             setPlayerTime(command.playerTime)
             setParts(command.parts)
+
         })
 
         socket.on('reset-game', (command) => {
@@ -54,6 +54,11 @@ function App({ match }) {
 
         socket.on('connect', () => {
             setPlayerid(socket.id)
+            if (parts[1] === playerid) {
+                setYou(1)
+            } else {
+                setYou(2)
+            }
         })
 
         socket.on('remove-player', (command) => {
@@ -61,7 +66,8 @@ function App({ match }) {
         })
 
         setEmit(socket)
-    }, [match.params.gameid])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         if (parts[1] === playerid) {
@@ -84,7 +90,7 @@ function App({ match }) {
 
     function newGame() {
         emit.emit('reset', {
-            gameid: gameid
+            gameid: match.params.gameid
         })
     }
 
@@ -99,18 +105,6 @@ function App({ match }) {
         return
     }
 
-    function share() {
-        if (navigator.share !== undefined) {
-            navigator.share({
-                title: 'Jogo da Veia',
-                text: 'So mandar',
-                url: `${gameid}`,
-            })
-                .then(() => console.log('Successful share'))
-                .catch((error) => console.log('Error sharing', error));
-        }
-    }
-
     return (
         <div className="container">
             <div className="pontuacao">
@@ -118,9 +112,14 @@ function App({ match }) {
                 <p id='old'><img src={imgOld} alt='X' />{pontuacao[3]}</p>
                 <p id='o'><img src={imgO} alt='O' /> {pontuacao[2]}</p>
             </div>
-            {playerTime === you ? (
+            {(playerTime === you && playerTime !== 3) ? (
                 <div className="turn">Sua vez</div>
             ) : (<div className="turn">Vez do amigo</div>)}
+            {playerTime === 3 ? (
+                <div className="New" onClick={() => newGame()}>
+                    <p>Começar de Novo</p>
+                </div>
+            ) : (<div />)}
             <div className='container-game'>
                 {
                     game.length > 0 ? (
@@ -151,13 +150,8 @@ function App({ match }) {
                     <p>Aguardando outro jogador</p>
                     <p>Mande esse código para seu Amigo</p>
                     <div className='link'>
-                        <a >{`${playerid}`}</a>
+                        <a >{`${match.params.gameid}`}</a>
                     </div>
-                </div>
-            ) : (<div />)}
-            {playerTime === 3 ? (
-                <div className="New" onClick={() => newGame()}>
-                    <p>Começar de Novo</p>
                 </div>
             ) : (<div />)}
         </div >

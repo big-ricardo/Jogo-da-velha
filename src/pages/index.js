@@ -8,6 +8,18 @@ function App() {
 
     const [gameid, setGameId] = useState('')
 
+    async function newRoom(){
+        console.log("deu");
+        const response = await axios.get(`${ip}/newroom`)
+        console.log(response.data);
+        const {gameid} = response.data
+        if (!gameid) {
+            alert("Error 404")
+        } else {
+            window.location.href = `${gameid}/game`
+        }
+    }
+
     async function testRoom(e) {
         e.preventDefault()
         const response = await axios.get(`${ip}/room?gameid=${gameid}`)
@@ -24,7 +36,7 @@ function App() {
             <div className="login-container">
                 <div className="form">
                     <h1>Bem vindo!</h1>
-                    <a href="/game">Novo Game</a>
+                    <a type="button" onClick={()=> newRoom()}>Novo Game</a>
                 </div>
                 <form onSubmit={testRoom}>
                     <h1>Quer entrar na sala de um amigo?</h1>
