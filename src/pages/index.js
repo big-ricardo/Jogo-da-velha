@@ -9,9 +9,7 @@ function App() {
     const [gameid, setGameId] = useState('')
 
     async function newRoom(){
-        console.log("deu");
         const response = await axios.get(`${ip}/newroom`)
-        console.log(response.data);
         const {gameid} = response.data
         if (!gameid) {
             alert("Error 404")

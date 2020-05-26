@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client'
+import axios from 'axios'
 
 import './App.css';
 import ip from '../services/Api'
@@ -19,53 +20,67 @@ function App({ match }) {
     const [emit, setEmit] = useState(() => { })
     const [playerid, setPlayerid] = useState('')
     const [you, setYou] = useState(1)
-    const [win, setWin] = useState(0)
 
     useEffect(() => {
         setGameid(match.params.gameid)
-        const socket = io(ip, {
-            query: { gameid: match.params.gameid }
-        })
-        socket.on('setup', (command) => {
-            setGame(command.game)
-            setPontuacao(command.pontuacao)
-            setPlayerTime(command.playerTime)
-            setParts(command.parts)
-
-        })
-
-        socket.on('reset-game', (command) => {
-            setGame(command.game)
-            setPlayerTime(command.playerTime)
-        })
-
-        socket.on('add-player', (command) => {
-            setGame(command.game)
-            setPlayerTime(command.playerTime)
-            setParts(command.players)
-        })
-
-        socket.on('attempt', (command) => {
-            setGame(command.game)
-            setPlayerTime(command.playerTime)
-            setPontuacao(command.pontuacao)
-            setSituation(command.situation)
-        })
-
-        socket.on('connect', () => {
-            setPlayerid(socket.id)
-            if (parts[1] === playerid) {
-                setYou(1)
-            } else {
-                setYou(2)
+        async function resp() {
+            const response = await axios.get(`${ip}/room?gameid=${match.params.gameid}`)
+            const { error } = response.data
+            if (error) {
+                window.location.href = `/`
+                return true
+            }else{
+                return false
             }
-        })
+        }
+        if (resp()) {
+            window.location.href = `/`
 
-        socket.on('remove-player', (command) => {
-            setPlayerTime(command.playerTime)
-        })
+        } else {
+            const socket = io(ip, {
+                query: { gameid: match.params.gameid }
+            })
+            socket.on('setup', (command) => {
+                setGame(command.game)
+                setPontuacao(command.pontuacao)
+                setPlayerTime(command.playerTime)
+                setParts(command.parts)
 
-        setEmit(socket)
+            })
+
+            socket.on('reset-game', (command) => {
+                setGame(command.game)
+                setPlayerTime(command.playerTime)
+            })
+
+            socket.on('add-player', (command) => {
+                setGame(command.game)
+                setPlayerTime(command.playerTime)
+                setParts(command.players)
+            })
+
+            socket.on('attempt', (command) => {
+                setGame(command.game)
+                setPlayerTime(command.playerTime)
+                setPontuacao(command.pontuacao)
+                setSituation(command.situation)
+            })
+
+            socket.on('connect', () => {
+                setPlayerid(socket.id)
+                if (parts[1] === playerid) {
+                    setYou(1)
+                } else {
+                    setYou(2)
+                }
+            })
+
+            socket.on('remove-player', (command) => {
+                setPlayerTime(command.playerTime)
+            })
+
+            setEmit(socket)
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
