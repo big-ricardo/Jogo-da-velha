@@ -141,7 +141,7 @@ function App({ match }) {
       {playerTime === 0 ? (
         <div className="waitingPlayer">
           <p>Aguardando outro jogador</p>
-          <p>Mande esse link para seu Amigo</p>
+          <p>Mande esse código para seu Amigo</p>
           <div className='link'>
           <a >{`${playerid}`}</a>
           </div>

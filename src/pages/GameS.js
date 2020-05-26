@@ -99,6 +99,18 @@ function App({ match }) {
         return
     }
 
+    function share() {
+        if (navigator.share !== undefined) {
+            navigator.share({
+                title: 'Jogo da Veia',
+                text: 'So mandar',
+                url: `${gameid}`,
+            })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+        }
+    }
+
     return (
         <div className="container">
             <div className="pontuacao">
@@ -137,7 +149,7 @@ function App({ match }) {
             {playerTime === 0 ? (
                 <div className="waitingPlayer">
                     <p>Aguardando outro jogador</p>
-                    <p>Mande esse link para seu Amigo</p>
+                    <p>Mande esse código para seu Amigo</p>
                     <div className='link'>
                         <a >{`${playerid}`}</a>
                     </div>
