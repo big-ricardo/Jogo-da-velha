@@ -47,7 +47,7 @@ function App() {
                     <button type="submit">Entrar</button>
                 </form>
             </div>
-            <a href="https://github.com/luiss1569"><p>Devesenvolvido por Luis Ricardo</p></a>
+            <a href="https://github.com/luiss1569"><p>Desenvolvido por Luis Ricardo</p></a>
         </div>
     );
 }
