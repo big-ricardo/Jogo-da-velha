@@ -1,5 +1,6 @@
 html{
     height: 100%;
+    background-image: url('https://blog.rachacuca.com.br/wp-content/uploads/2020/01/enigmas-jogo-da-velha-768x768.jpg');
 }
 
 .backfround{
@@ -8,7 +9,20 @@ html{
     top: 0;
     left: 0;
     right: 0;
-    background-image: url('https://blog.rachacuca.com.br/wp-content/uploads/2020/01/enigmas-jogo-da-velha-768x768.jpg');
+    background-size: auto;
+    
+}
+
+.backfround p{
+    position: absolute;
+    text-align: center;
+    color: floralwhite;
+    padding: 10px;
+    background-color: rgba(128, 128, 128, 0.8);
+    bottom: 0;
+    left: 40%;
+    border: 2px solid black;
+    border-radius: 10px;
 }
 
 .login-container{
@@ -85,17 +99,28 @@ form{
 }
 
 @media (max-Width: 1050px){
+    .backfround p{
+        position: relative;
+        left: 7%;
+        width: 80%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
     .login-container{
         flex-direction: column;
     }
     .login-container form, .form{
         flex-direction: column;
-        margin-top: 10%;
+        margin-top: 4%;
         padding: 40px;
         max-width: 70%;
     }
     form{
         margin-left: 0;
         margin: -10px;
+        
+    }
+    .login-container .form a{
+        margin-bottom: 10px;
     }
 }

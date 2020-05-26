@@ -2,6 +2,14 @@ html{
   background-color: dimgray;
 }
 
+.mega{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .container{
   display: flex;
   flex: 1;
@@ -16,10 +24,14 @@ html{
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background-color: rgba(105, 105, 105, 0.9);
+  border: 2px solid black;
+  border-radius: 10px;
+  margin-top: 2%;
 }
 
 .container .pontuacao p img {
-  width: 30px;
+  width: 35px;
 }
 
 .container .pontuacao #x,#old,#o{
@@ -27,7 +39,7 @@ html{
   text-align: center;
   padding: 10px;
   flex-direction: column;
-  font-size: 20px;
+  font-size: 25px;
   color: aliceblue;
 }
 
@@ -41,7 +53,8 @@ html{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2px;
-  margin-top: 50px;
+  background-color: rgba(105, 105, 105, 0.7);
+  margin-top: 10%;
 }
 
 .container-game .tabuleiro .espaco{
@@ -61,15 +74,18 @@ html{
 }
 
 .New{
-  padding: 5px;
-  cursor: pointer;
-  background-color: darkslategrey;
-  color: aliceblue;
-  padding: 2px;
-  font-size: 15px;
-  border: 2px solid black;
-  transition: .2s;
-  margin-bottom: -15px;
+  margin-top: 10px;
+    border: 0px;
+    border-radius: 4px;
+    height: 50px;
+    padding: 5px;
+    font-size: 16px;
+    background-color: #df4723;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: .2s;
+    margin-bottom: -5px;
 }
 
 .New:hover{
@@ -77,17 +93,22 @@ html{
 }
 
 .turn{
-  font-size: 20px;
-  margin-bottom: -20px;
+  font-size: 25px;
+  margin-top: 10px;
+  background-color: rgba(105, 105, 105, 1);
+  padding: 5px;
+  border: 2px solid black;
 }
 
 .player{
   font-size: 20px;
-  padding: 10px;
   display: flex;
-  flex: 1;
   justify-content: center;
   align-items: center;
+  background-color: rgba(105, 105, 105, 0.9);
+  height: 50px;
+  border: 2px solid black;
+  margin-top: 50px;
 }
 
 .player img{
@@ -127,11 +148,15 @@ html{
 
 @media (max-Width: 1050px){
   .container .pontuacao p img {
-    width: 40px;
+    width: 35px;
+  }
+  .player{
+    margin-top: 15px;
+    width: 50%;
   }
   .container .pontuacao #x,#old,#o{
     padding: 10px;
-    font-size: 30px;
+    font-size: 25px;
   }
   .container-game .tabuleiro{
       max-height: 50%;

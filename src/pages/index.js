@@ -34,7 +34,7 @@ function App() {
             <div className="login-container">
                 <div className="form">
                     <h1>Bem vindo!</h1>
-                    <a type="button" onClick={()=> newRoom()}>Novo Game</a>
+                    <a type="button" onClick={()=> newRoom()}>Criar sala</a>
                 </div>
                 <form onSubmit={testRoom}>
                     <h1>Quer entrar na sala de um amigo?</h1>
@@ -47,6 +47,7 @@ function App() {
                     <button type="submit">Entrar</button>
                 </form>
             </div>
+            <a href="https://github.com/luiss1569"><p>Devesenvolvido por Luis Ricardo</p></a>
         </div>
     );
 }

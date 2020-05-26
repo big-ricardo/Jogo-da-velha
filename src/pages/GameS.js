@@ -23,15 +23,6 @@ function App({ match }) {
 
     useEffect(() => {
         setGameid(match.params.gameid)
-        async function resp() {
-            const response = await axios.get(`${ip}/room?gameid=${match.params.gameid}`)
-            const { error } = response.data
-            if (error) {
-                window.location.href = `/`
-                return true
-            } 
-        }
-        resp()
         const socket = io(ip, {
             query: { gameid: match.params.gameid }
         })
@@ -116,54 +107,59 @@ function App({ match }) {
     }
 
     return (
-        <div className="container">
-            <div className="pontuacao">
-                <p id='x'><img src={imgX} alt='X' /> {pontuacao[1]}</p>
-                <p id='old'><img src={imgOld} alt='X' />{pontuacao[3]}</p>
-                <p id='o'><img src={imgO} alt='O' /> {pontuacao[2]}</p>
-            </div>
-            {(playerTime === you && playerTime !== 3) ? (
-                <div className="turn">Sua vez</div>
-            ) : (<div className="turn">Vez do amigo</div>)}
-            {playerTime === 3 ? (
-                <div className="New" onClick={() => newGame()}>
-                    <p>Começar de Novo</p>
+        <div className="mega">
+            <div className="container">
+                <div className="pontuacao">
+                    <p id='x'><img src={imgX} alt='X' /> {pontuacao[1]}</p>
+                    <p id='old'><img src={imgOld} alt='X' />{pontuacao[3]}</p>
+                    <p id='o'><img src={imgO} alt='O' /> {pontuacao[2]}</p>
                 </div>
-            ) : (<div />)}
-            <div className='container-game'>
-                {
-                    game.length > 0 ? (
-                        <div className="tabuleiro">
-                            <div id="a1" className="espaco" onClick={() => positionClick({ i: 0, j: 0 })}><img src={imgEspace({ elem: game[0][0] })} alt='' /></div>
-                            <div id="a2" className="espaco" onClick={() => positionClick({ i: 0, j: 1 })}><img src={imgEspace({ elem: game[0][1] })} alt='' /></div>
-                            <div id="a3" className="espaco" onClick={() => positionClick({ i: 0, j: 2 })}><img src={imgEspace({ elem: game[0][2] })} alt='' /></div>
-
-                            <div id="b1" className="espaco" onClick={() => positionClick({ i: 1, j: 0 })}><img src={imgEspace({ elem: game[1][0] })} alt='' /></div>
-                            <div id="b2" className="espaco" onClick={() => positionClick({ i: 1, j: 1 })}><img src={imgEspace({ elem: game[1][1] })} alt='' /></div>
-                            <div id="b3" className="espaco" onClick={() => positionClick({ i: 1, j: 2 })}><img src={imgEspace({ elem: game[1][2] })} alt='' /></div>
-
-                            <div id="c1" className="espaco" onClick={() => positionClick({ i: 2, j: 0 })}><img src={imgEspace({ elem: game[2][0] })} alt='' /></div>
-                            <div id="c2" className="espaco" onClick={() => positionClick({ i: 2, j: 1 })}><img src={imgEspace({ elem: game[2][1] })} alt='' /></div>
-                            <div id="c3" className="espaco" onClick={() => positionClick({ i: 2, j: 2 })}><img src={imgEspace({ elem: game[2][2] })} alt='' /></div>
-                        </div>
-                    ) : (
-                            <div />
-                        )
-                }
-            </div>
-            <div className='player'>
-                <p>Você é</p>
-                <img src={imgEspace({ elem: you })} alt={you === 1 ? "X" : "o"} />
-            </div>
-            {playerTime === 0 ? (
-                <div className="waitingPlayer">
-                    <p>Aguardando outro jogador</p>
-                    <p>Mande esse código para seu Amigo</p>
-                    <div className='link'>
-                        <a >{`${match.params.gameid}`}</a>
+                {playerTime === 3 ? (
+                    <div className="New" onClick={() => newGame()}>
+                        <p>Começar de Novo</p>
                     </div>
+                ) : (playerTime === you) ? (
+                    <div className="turn">Sua vez</div>
+                ) : (<div className="turn">Vez do amigo</div>)}
+                <div className='container-game'>
+                    {
+                        game.length > 0 ? (
+                            <div className="tabuleiro">
+                                <div id="a1" className="espaco" onClick={() => positionClick({ i: 0, j: 0 })}><img src={imgEspace({ elem: game[0][0] })} alt='' /></div>
+                                <div id="a2" className="espaco" onClick={() => positionClick({ i: 0, j: 1 })}><img src={imgEspace({ elem: game[0][1] })} alt='' /></div>
+                                <div id="a3" className="espaco" onClick={() => positionClick({ i: 0, j: 2 })}><img src={imgEspace({ elem: game[0][2] })} alt='' /></div>
+
+                                <div id="b1" className="espaco" onClick={() => positionClick({ i: 1, j: 0 })}><img src={imgEspace({ elem: game[1][0] })} alt='' /></div>
+                                <div id="b2" className="espaco" onClick={() => positionClick({ i: 1, j: 1 })}><img src={imgEspace({ elem: game[1][1] })} alt='' /></div>
+                                <div id="b3" className="espaco" onClick={() => positionClick({ i: 1, j: 2 })}><img src={imgEspace({ elem: game[1][2] })} alt='' /></div>
+
+                                <div id="c1" className="espaco" onClick={() => positionClick({ i: 2, j: 0 })}><img src={imgEspace({ elem: game[2][0] })} alt='' /></div>
+                                <div id="c2" className="espaco" onClick={() => positionClick({ i: 2, j: 1 })}><img src={imgEspace({ elem: game[2][1] })} alt='' /></div>
+                                <div id="c3" className="espaco" onClick={() => positionClick({ i: 2, j: 2 })}><img src={imgEspace({ elem: game[2][2] })} alt='' /></div>
+                            </div>
+                        ) : (
+                                <div />
+                            )
+                    }
                 </div>
-            ) : (<div />)}
+                <div className='player'>
+                    <p>Você é</p>
+                    <img src={imgEspace({ elem: you })} alt={you === 1 ? "X" : "o"} />
+                </div>
+                {playerTime === 0 ? (
+                    <div className="waitingPlayer">
+                        <p>Aguardando outro jogador</p>
+                        <p>Mande esse código para seu Amigo</p>
+                        <div className='link'>
+                            <a >{`${match.params.gameid}`}</a>
+                        </div>
+                        <p>Ou mande esse link</p>
+                        <div className='link'>
+                            <a href={`https://jogodaveia.herokuapp.com/${gameid}/game`} >{`https://jogodaveia.herokuapp.com/${gameid}/game`}</a>
+                        </div>
+                    </div>
+                ) : (<div />)}
+            </div>
         </div >
     );
 }
