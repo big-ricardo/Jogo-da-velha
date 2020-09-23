@@ -89,6 +89,14 @@ function App({ match }) {
         })
     }
 
+    function addBot(){
+        emit.emit("add-bot", {
+            gameid: gameid
+        })
+        console.log('addbot')
+    }
+
+
     function newGame() {
         emit.emit('reset', {
             gameid: match.params.gameid
@@ -157,6 +165,8 @@ function App({ match }) {
                         <div className='link'>
                             <a href={`https://jogodaveia.herokuapp.com/${gameid}/game`} >{`https://jogodaveia.herokuapp.com/${gameid}/game`}</a>
                         </div>
+                        <p>Se preferir</p>
+                        <div><button className="bot" onClick={() => addBot()}>Jogar contra Bot</button></div>
                     </div>
                 ) : (<div />)}
             </div>

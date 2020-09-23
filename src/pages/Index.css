@@ -1,6 +1,7 @@
 html{
     height: 100%;
     background-image: url('https://blog.rachacuca.com.br/wp-content/uploads/2020/01/enigmas-jogo-da-velha-768x768.jpg');
+    background-size: contain;
 }
 
 .backfround{
