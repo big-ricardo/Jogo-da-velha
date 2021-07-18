@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client'
-import axios from 'axios'
 
 import './App.css';
 import ip from '../services/Api'
@@ -165,6 +164,7 @@ function App({ match }) {
                         <div className='link'>
                             <a href={`https://jogodaveia.herokuapp.com/${gameid}/game`} >{`https://jogodaveia.herokuapp.com/${gameid}/game`}</a>
                         </div>
+                        <br/>
                         <p>Se preferir</p>
                         <div><button className="bot" onClick={() => addBot()}>Jogar contra Bot</button></div>
                     </div>
